@@ -29,6 +29,7 @@ class RepoResultsViewController: UIViewController {
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
 
+        
         // Perform the first search when the view controller first loads
         doSearch()
     }
@@ -51,6 +52,20 @@ class RepoResultsViewController: UIViewController {
             }, error: { (error) -> Void in
                 print(error)
         })
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navVc = segue.destinationViewController as! UINavigationController
+        let settingVc = navVc.viewControllers[0] as! SettingViewController
+        settingVc.setting = searchSettings
+        settingVc.delegate = self
+    }
+    
+}
+
+extension RepoResultsViewController: SettingDelegate {
+    func onSettingDismissedWithSetting(setting: GithubRepoSearchSettings) {
+        
     }
 }
 
